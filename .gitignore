@@ -26,3 +26,7 @@ yarn-error.log*
 
 files_without_canonical.txt
 /tmp
+
+# Submodules for Antora build
+/kw-community-docs-supp-files
+/dsc-style-bundle
