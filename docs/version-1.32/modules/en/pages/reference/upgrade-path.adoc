@@ -1,8 +1,8 @@
 include::partial$variables.adoc[]
 = Upgrade path
-:revdate: 2025-11-25
+:revdate: 2026-03-12
 :page-revdate: {revdate}
-:description: Upgrade path for the {project-name} stack.
+:description: Upgrade your {project-name} stack using supported versioning strategies and compatibility rules among its components.
 :doc-persona: ["kubewarden-operator"]
 :doc-topic: ["operator-manual", "upgrade-path"]
 :doc-type: ["reference"]
@@ -37,7 +37,7 @@ The `kubewarden-crds` chart, `kubewarden-controller` chart,
 `kwctl` should run the same `MAJOR`.`MINOR`.`PATCH` version.
 
 Therefore, if the `kubewarden-controller` version running is `1.1.2`, the
-``policy-server`` and `kwctl` version in use should be `1.1.2` as well.
+``policy-server``s and `kwctl` version in use should be `1.1.2` as well.
 
 == Helm chart versions
 

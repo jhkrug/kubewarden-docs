@@ -1,8 +1,8 @@
 .PHONY: all
 all:
 	@echo "Available targets:"
-	@echo "  community-local            Build the local community documentation site"
-	@echo "  preview-local-community    Preview the local community documentation site"
+	@echo "  community-local            Build the local community docs site"
+	@echo "  preview-local-community    Preview the local community docs site"
 	@echo "  clean                      Clean build artifacts"
 	@echo "  checkmake                  Check Makefile for common issues"
 	@echo "  environment                Set up the Node.js environment"
@@ -14,6 +14,12 @@ community-local: tmpdir environment
 	npx antora --stacktrace --log-format=pretty --log-level=info \
 		kw-local-community-playbook.yml \
 		2>&1 | tee -a tmp/community-local-build.log
+	@echo 
+	@echo "If your build was successful, you can preview the site with" 
+	@echo "'make preview-local-community'. The server needs to be used, viewing" 
+	@echo "the html files directly will not work due to the Antora playbook"
+	@echo "setting 'html_extension_style: drop'."
+	@echo
 
 .PHONY: clean
 clean:
