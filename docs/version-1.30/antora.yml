@@ -1,1 +1,6 @@
-antora-yml/antora-product.yml
+name: kubewarden
+title: Kubewarden
+version: '1.30'
+start_page: en:introduction.adoc
+nav:
+- modules/en/nav.adoc
