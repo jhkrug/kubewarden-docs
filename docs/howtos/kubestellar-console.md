@@ -1,6 +1,6 @@
 ---
 sidebar_label: KubeStellar Console
-sidebar_position: 100
+sidebar_position: 150
 title: Installing Kubewarden with KubeStellar Console
 description: How to install Kubewarden using the KubeStellar Console guided install mission.
 keywords: [kubewarden, kubernetes, kubestellar, console, guided install]

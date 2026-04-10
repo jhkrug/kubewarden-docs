@@ -1,5 +1,6 @@
 ---
 sidebar_label: Migrating Gatekeeper Policies to Kubewarden
+sidebar_position: 180
 title: "Migrating Gatekeeper Policies to Kubewarden"
 description: "Migrating Gatekeeper Policies to Kubewarden"
 keywords: [kubewarden, gatekeeper]
