@@ -164,7 +164,7 @@ helm upgrade --wait -n kubewarden kubewarden-defaults kubewarden/kubewarden-defa
 ## Configuring custom PolicyServers
 
 Cluster operators can configure their custom PolicyServers by setting their
-`spec.namespacedPoliciesCapabilities`. if not provided, Policy Servers by
+`spec.namespacedPoliciesCapabilities`. If not provided, PolicyServers by
 default allow all capability calls.
 
 ## Controlling on which PolicyServer the namespaced policies run

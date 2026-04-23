@@ -345,7 +345,7 @@ host capabilities.
 
 #### Mitigation
 
-- Apply principle of least privilege to `spec.namespacedPoliciesCapabilities`
+- Apply the principle of least privilege to `spec.namespacedPoliciesCapabilities`
   on every PolicyServer. Grant only the host capabilities that the policies
   running on that instance actually require.
 - Isolate PolicyServers for sensitive Namespaces: do not co-locate high-trust
