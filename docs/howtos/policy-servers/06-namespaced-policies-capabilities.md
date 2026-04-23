@@ -48,7 +48,7 @@ see our [Threat model](../../reference/threat-model.md).
 ## Background
 
 `AdmissionPolicy` and `AdmissionPolicyGroup` are namespaced resources.
-Because they are deployable by low-privileged users, they do not have a
+Because they can be made deployable to non privileged users, they do not have a
 `spec.contextAwareResources` field and cannot fetch information from the
 Kubernetes API.
 
