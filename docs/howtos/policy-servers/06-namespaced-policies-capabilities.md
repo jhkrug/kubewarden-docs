@@ -325,3 +325,70 @@ When upgrading from a Kubewarden version that predates this feature (`<= v1.34`)
   updated. The `ns-policyserver-mapper` policy only applies on `CREATE` and
   `UPDATE` operations. To migrate existing policies, trigger an update for each
   one after labeling their Namespace.
+
+## Authoring and auditing a policy with host capability calls
+
+### Authoring
+
+Policy authors can self-report a list of host capabilities that a policy uses
+using the policy metadata (see [metadata documentation
+page](../../tutorials/writing-policies/metadata.md)). For example:
+
+```yaml
+[...]
+hostCapabilities:
+  - kubernetes/list_resources_by_namespace
+  - kubernetes/list_resources_all
+  - kubernetes/get_resource
+[...]
+
+In addition, when the policy author annotates the policy Wasm module, `kwctl annotate`
+performs an heuristic scan of the Wasm binary's data for known host-capability
+strings, and compares what it detects against the `hostCapabilities` list
+declared in `metadata.yml`. Any mismatch is reported as warnings on stderr:
+
+- **Used but undeclared**: host capabilities found in the binary but absent
+  from the metadata declaration.
+- **Declared but not detected**: host capabilities listed in the metadata but
+  not found in the binary.
+
+### Auditing
+
+Before deploying an untrusted policy, cluster operators can get a signal about
+which host capabilities it uses by running `kwctl annotate`.
+
+Here is an example output when the metadata declares `oci/v1/verify` but the
+binary actually uses `kubernetes/get_resource` and
+`kubernetes/list_resources_by_namespace`:
+
+```console
+kwctl annotate -m metadata.yml -o annotated-policy.wasm policy.wasm
+
+WARN host capabilities used by the policy but not declared in metadata
+     capabilities={"kubernetes/get_resource", "kubernetes/list_resources_by_namespace"}
+WARN host capabilities declared in metadata but not detected in the policy
+     capabilities={"oci/v1/verify"}
+```
+
+These warnings can inform what to set in a PolicyServer
+`spec.namespacedPoliciesCapabilities` before deploying the policy. For example,
+enabling only the capabilities the scan suggests are actually needed.
+
+:::warning
+Both the self-reporting from the policy author and the `kwctl annotate`
+heuristic scan cannot be used as a security boundary. A policy publisher could
+embed any arbitrary `hostCapabilities` list in the metadata regardless of what
+the binary actually does at runtime.
+
+Use this information as one signal alongside other trust indicators (image
+signing, source code review, policy provenance, etc) not as an authoritative
+proof of what capabilities a policy exercises.
+:::
+
+## Further reading
+
+- [Host capabilities specification](../../reference/spec/host-capabilities/intro-host-capabilities.md)
+- [Security hardening](../security-hardening/security-hardening.md)
+- [Threat model](../../reference/threat-model.md)
+- [Context aware policies](../../explanations/context-aware-policies.md)
+- [`kwctl annotate` reference](../../reference/kwctl-cli.md#kwctl-annotate)
