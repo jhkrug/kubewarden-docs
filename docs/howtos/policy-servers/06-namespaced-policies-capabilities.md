@@ -146,7 +146,7 @@ The `kubewarden-defaults` Helm chart exposes
 PolicyServer. When unset, all host capabilities are allowed (backwards-compatible
 default).
 
-To lock down the default PolicyServer so namespaced policies have no host
+To lock down the `default` Policy Server so namespaced policies have no host
 capability access:
 
 ```console
@@ -164,7 +164,7 @@ helm upgrade --wait -n kubewarden kubewarden-defaults kubewarden/kubewarden-defa
 ## Configuring custom PolicyServers
 
 Cluster operators can configure their custom PolicyServers by setting their
-`spec.namespacedPoliciesCapabilities`. if not provided, PolicyServers by
+`spec.namespacedPoliciesCapabilities`. if not provided, Policy Servers by
 default allow all capability calls.
 
 ## Controlling on which PolicyServer the namespaced policies run
