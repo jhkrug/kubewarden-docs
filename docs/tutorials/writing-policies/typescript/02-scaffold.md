@@ -82,36 +82,45 @@ Provided the necessary tools are in place, the `make all` command builds the `an
 <summary>Output from the `make` commands</summary>
 
 ```console
-make all
-npx webpack --config webpack.config.cjs
-asset bundled.js 5.52 KiB [compared for emit] [minimized] (name: main)
-asset types.d.ts 430 bytes [compared for emit]
-asset index.d.ts 11 bytes [compared for emit]
-./src/index.ts 3.84 KiB [built] [code generated]
-./node_modules/kubewarden-policy-sdk/dist/bundle.js 3.85 KiB [built] [code generated]
-webpack 5.101.3 compiled successfully in 2280 ms
+$ make all
+  
 npm install
 
-up to date, audited 400 packages in 2s
+added 393 packages, and audited 394 packages in 9s
 
-58 packages are looking for funding
+59 packages are looking for funding
   run `npm fund` for details
 
 found 0 vulnerabilities
+npm run build
+
+> kubewarden-js-policy-template@0.1.1 build
+> npx webpack --config webpack.config.cjs
+
+asset bundled.js 5.49 KiB [emitted] [minimized] (name: main)
+asset types.d.ts 430 bytes [emitted]
+asset index.d.ts 11 bytes [emitted]
+./src/index.ts 3.65 KiB [built] [code generated]
+./node_modules/@kubewarden/policy-sdk/dist/bundle.js 3.83 KiB [built] [code generated]
+webpack 5.106.2 compiled successfully in 817 ms
+npm install
+
+up to date, audited 394 packages in 638ms
+
+59 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+javy build dist/bundled.js -C plugin=node_modules/@kubewarden/policy-sdk/plugin/javy-plugin-kubewarden.wasm -o policy.wasm
+kwctl annotate policy.wasm --metadata-path metadata.yml --output-path annotated-policy.wasm
 ```
 
 ```console
-make e2e
-npx webpack --config webpack.config.cjs
-asset bundled.js 5.52 KiB [compared for emit] [minimized] (name: main)
-asset types.d.ts 430 bytes [compared for emit]
-asset index.d.ts 11 bytes [compared for emit]
-./src/index.ts 3.84 KiB [built] [code generated]
-./node_modules/kubewarden-policy-sdk/dist/bundle.js 3.85 KiB [built] [code generated]
-webpack 5.101.3 compiled successfully in 1909 ms
+$ make e2e
+  
 bats e2e.bats
 e2e.bats
- ✓ reject because hostname is on the deny list
+ ✓ reject because hostname is on deny list
  ✓ accept because hostname is not on the deny list
  ✓ accept because the deny list is empty
  ✓ accept because pod has no hostname set
