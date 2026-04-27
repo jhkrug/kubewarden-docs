@@ -93,3 +93,26 @@ Server `.spec.securityContexts` under `.Values.policyServer.securityContexts`.
 
 For Policy Servers managed by operators, you can configure them via their
 [`spec.securityContexts`](https://docs.kubewarden.io/reference/CRDs#policyserversecurity).
+
+### Namespaced policy host capabilities
+
+Namespaced policies (`AdmissionPolicy` and `AdmissionPolicyGroup`) cannot
+access Kubernetes resources via `contextAwareResources`, but they can exercise
+other host capabilities: OCI registry queries, Kubernetes `can_i` checks, DNS
+lookups, and certificate verification. These capabilities could be exploited by
+a low-privileged user for information disclosure or reconnaissance (see our
+[Threat model](../../reference/threat-model.md))
+
+Each `PolicyServer` exposes a `spec.namespacedPoliciesCapabilities` field that
+lists which host capability API call paths are available to its namespaced
+policies. By default, all PolicyServers allow all host capability calls for
+namespaced policies. This includes the PolicyServer `default` (installed with
+the `kubewarden-defaults` Helm chart), and custom PolicyServers.
+
+Cluster operators need to configure each PolicyServer's
+`spec.namespacedPoliciesCapabilities` by setting it to `[]` to deny all, or
+provide an explicit allowlist.
+
+For a full walkthrough, including an example on secure self-service Namespaces
+and policies useful for teams, see [Controlling host capabilities for
+namespaced policies](../policy-servers/06-namespaced-policies-capabilities.md).

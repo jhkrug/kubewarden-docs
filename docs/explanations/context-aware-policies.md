@@ -35,6 +35,21 @@ If an unprivileged user deploys a context aware policy as an `AdmissionPolicy`, 
 - Blocks all attempts to access Kubernetes resources.
 - Reports them to the cluster administrator.
 
+:::note
+
+`AdmissionPolicy` and `AdmissionPolicyGroup` resources have no
+`spec.contextAwareResources` field and therefore cannot read Kubernetes
+resources at all. However, they can still exercise other **host capabilities**
+provided by policy-server — such as OCI registry queries, `kubernetes/can_i`
+checks, DNS lookups, and certificate verification.
+
+Cluster operators can restrict which of these host capabilities are available
+to namespaced policies using the `spec.namespacedPoliciesCapabilities` field on
+the `PolicyServer` they run on. For details, see
+[Controlling host capabilities for namespaced policies](../howtos/policy-servers/06-namespaced-policies-capabilities.md).
+
+:::
+
 By default, all the cluster resources are blocked.
 A Kubewarden administrator defines which Kubernetes resources each context aware policy is allowed to read.
 The `ClusterAdmissionPolicy` definition uses the field `contextAwareResources` to do this.
