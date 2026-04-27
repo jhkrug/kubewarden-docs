@@ -387,7 +387,7 @@ proof of what capabilities a policy exercises.
 
 ## Further reading
 
-- [Host capabilities specification](../../reference/spec/host-capabilities/intro-host-capabilities.md)
+- [Host capabilities specification](../../reference/spec/host-capabilities/01-intro-host-capabilities.md)
 - [Security hardening](../security-hardening/security-hardening.md)
 - [Threat model](../../reference/threat-model.md)
 - [Context aware policies](../../explanations/context-aware-policies.md)
