@@ -341,6 +341,7 @@ hostCapabilities:
   - kubernetes/list_resources_all
   - kubernetes/get_resource
 [...]
+```
 
 In addition, when the policy author annotates the policy Wasm module, `kwctl annotate`
 performs an heuristic scan of the Wasm binary's data for known host-capability
