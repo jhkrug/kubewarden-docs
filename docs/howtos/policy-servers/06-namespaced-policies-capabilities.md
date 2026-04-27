@@ -353,8 +353,6 @@ declared in `metadata.yml`. Any mismatch is reported as warnings on stderr:
 - **Declared but not detected**: host capabilities listed in the metadata but
   not found in the binary.
 
-### Auditing
-
 Before deploying an untrusted policy, cluster operators can get a signal about
 which host capabilities it uses by running `kwctl annotate`.
 
@@ -371,9 +369,7 @@ WARN host capabilities declared in metadata but not detected in the policy
      capabilities={"oci/v1/verify"}
 ```
 
-These warnings can inform what to set in a PolicyServer
-`spec.namespacedPoliciesCapabilities` before deploying the policy. For example,
-enabling only the capabilities the scan suggests are actually needed.
+### Auditing
 
 :::warning
 Both the self-reporting from the policy author and the `kwctl annotate`
@@ -385,6 +381,24 @@ Use this information as one signal alongside other trust indicators (image
 signing, source code review, policy provenance, etc) not as an authoritative
 proof of what capabilities a policy exercises.
 :::
+
+
+## Running a policy with host capability calls
+
+`kwctl run` and `kwctl bench` now have a flag
+`--allowed-host-capabilities`. This flag sets the host capabilities the policy
+is allowed to use and can be repeated many times. For example:
+
+```console
+$ kwctl run \
+  --allowed-host-capabilities 'oci/*' \
+  --allowed-host-capabilities 'kubernetes/get_resource'
+```
+
+`kwctl` will emit errors if the policy has not been granted enough permissions
+for the needed capabilities.
+
+This allows Policy Users to assess their policies out-of-cluster.
 
 ## Further reading
 
